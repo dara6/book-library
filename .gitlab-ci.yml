@@ -1,0 +1,33 @@
+---
+
+stages:
+  - lint
+  - format
+  - test
+
+lint:
+  stage: lint
+  image: snakepacker/python:all
+  before_script:
+    - python3.11 -m pip install poetry
+    - poetry install
+  script:
+    - make lint
+
+format:
+  stage: format
+  image: snakepacker/python:all
+  before_script:
+    - python3.11 -m pip install poetry
+    - poetry install
+  script:
+    - make format
+
+test:
+  stage: test
+  image: snakepacker/python:all
+  before_script:
+    - python3.11 -m pip install poetry
+    - poetry install
+  script:
+    - make test
