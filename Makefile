@@ -22,3 +22,11 @@ docker-down:
 
 env:
 	cp .env.example .env
+
+db-up:
+	docker-compose --env-file .env up -d db
+
+db-down:
+	docker-compose stop db
+	docker-compose rm -f db
+
