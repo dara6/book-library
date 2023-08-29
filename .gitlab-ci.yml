@@ -15,7 +15,7 @@ stages:
 
 init:
   stage: init
-  image: snakepacker/python:3.10
+  image: snakepacker/python:all
   script:
     - python3.10 -m pip install poetry
     - poetry export -f requirements.txt --output requirements.txt --without-hashes
