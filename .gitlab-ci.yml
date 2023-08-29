@@ -1,0 +1,45 @@
+---
+
+default:
+  cache:
+    path:
+      - /usr/lib/python3.10
+
+stages:
+  - init
+  - lint
+  - format
+  - test
+
+init:
+  stage: init
+  image: snakepacker/python:3.10
+  script:
+    - pip install poetry
+    - poetry install
+    - poetry export -f requirements.txt --output requirements.txt --without-hashes
+    - pip install --no-cache-dir --upgrade -r requirements.txt
+
+lint:
+  stage: lint
+  image: snakepacker/python:3.10
+  dependencies:
+    - init
+  script:
+    - make lint
+
+format:
+  stage: format
+  image: snakepacker/python:3.10
+  dependencies:
+    - init
+  script:
+    - make format
+
+test:
+  stage: test
+  image: snakepacker/python:3.10
+  dependencies:
+    - init
+  script:
+    - make test
