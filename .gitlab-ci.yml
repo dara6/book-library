@@ -17,10 +17,9 @@ init:
   stage: init
   image: snakepacker/python:3.10
   script:
-    - pip install poetry
-    - poetry install
+    - python3.10 -m pip install poetry
     - poetry export -f requirements.txt --output requirements.txt --without-hashes
-    - pip install --no-cache-dir --upgrade -r requirements.txt
+    - python3.10 -m pip install --no-cache-dir --upgrade -r requirements.txt
 
 lint:
   stage: lint
