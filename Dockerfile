@@ -17,5 +17,3 @@ COPY --from=requirements-stage /fastapi_app/requirements.txt /code/requirements.
 RUN pip install --no-cache-dir --upgrade -r /code/requirements.txt
 
 COPY ./app /code/app
-
-CMD  ["uvicorn", "app.main:app", "--reload", "--host", "0.0.0.0"]

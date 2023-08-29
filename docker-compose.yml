@@ -5,7 +5,10 @@ services:
     build:
       context: .
     container_name: fastapi_app
+    env_file:
+      - ./.env
+    command: "uvicorn app.main:app --reload --host ${APP_HOST} --port ${APP_PORT}"
     expose:
-      - 8000
+      - "${APP_PORT}"
     ports:
-      - "8000:8000"
+      - "${APP_PORT}:${APP_PORT}"
