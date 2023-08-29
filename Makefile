@@ -1,5 +1,7 @@
+include .env
+
 local:
-	uvicorn app.main:app --reload --host 0.0.0.0
+	uvicorn app.main:app --reload --host ${APP_HOST} --port ${APP_PORT}
 
 test:
 	pytest --disable-warnings --asyncio-mode=auto -vv -x -rP
@@ -13,7 +15,10 @@ format:
 	unify --in-place --recursive --quote "'" .
 
 docker-up:
-	docker-compose up -d --build
+	docker-compose --env-file .env up -d --build
 
 docker-down:
 	docker-compose down
+
+env:
+	cp .env.example .env
