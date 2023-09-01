@@ -31,8 +31,6 @@ init:
 lint:
   stage: lint
   image: snakepacker/python:3.10
-  dependencies:
-    - init
   needs:
     - init
   before_script:
@@ -45,8 +43,6 @@ lint:
 format:
   stage: format
   image: snakepacker/python:3.10
-  dependencies:
-    - init
   needs:
     - init
   before_script:
