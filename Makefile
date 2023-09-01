@@ -1,4 +1,4 @@
-include .env
+-include .env
 
 local:
 	uvicorn app.main:app --reload --host ${APP_HOST} --port ${APP_PORT}
