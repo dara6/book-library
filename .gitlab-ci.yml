@@ -13,13 +13,13 @@ stages:
   - format
   - test
 
-init:
-  stage: init
-  image: snakepacker/python:all
-  script:
-    - python3.10 -m pip install poetry
-    - poetry export -f requirements.txt --output requirements.txt --without-hashes
-    - python3.10 -m pip install --no-cache-dir --upgrade -r requirements.txt
+# init:
+#   stage: init
+#   image: snakepacker/python:all
+#   script:
+#     - python3.10 -m pip install poetry
+#     - poetry export -f requirements.txt --output requirements.txt --without-hashes
+#     - python3.10 -m pip install --no-cache-dir --upgrade -r requirements.txt
 
 lint:
   stage: lint
@@ -34,15 +34,15 @@ lint:
 format:
   stage: format
   image: snakepacker/python:3.10
-  dependencies:
-    - init
+  # dependencies:
+    # - init
   script:
     - make format
 
 test:
   stage: test
   image: snakepacker/python:3.10
-  dependencies:
-    - init
+  # dependencies:
+    # - init
   script:
     - make test
