@@ -22,32 +22,32 @@ init:
 
 format:
   stage: format
-  image: ubuntu:20.04
+  image: snakepacker/python:3.10
   needs:
     - init
   before_script:
     - apt update
     - apt install build-essential -y
-  script:
     - source .venv/bin/activate
+  script:
     - make format
 
 lint:
   stage: lint
-  image: ubuntu:20.04
+  image: snakepacker/python:3.10
   needs:
     - init
     - format
   before_script:
     - apt update
     - apt install build-essential -y
-  script:
     - source .venv/bin/activate
+  script:
     - make lint
 
 test:
   stage: test
-  image: ubuntu:20.04
+  image: snakepacker/python:3.10
   needs:
     - init
     - format
@@ -55,6 +55,6 @@ test:
   before_script:
     - apt update
     - apt install build-essential -y
-  script:
     - source .venv/bin/activate
+  script:
     - make test
