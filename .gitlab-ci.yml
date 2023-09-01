@@ -16,9 +16,9 @@ init:
     - source .venv/bin/activate
     - python -m pip install --no-cache-dir --upgrade -r requirements.txt
   artifacts:
-      paths:
-        - .venv
-      expire_in: 30 minutes
+    paths:
+      - .venv
+    expire_in: 30 minutes
 
 format:
   stage: format
@@ -28,8 +28,8 @@ format:
   before_script:
     - apt update
     - apt install build-essential -y
-    - source .venv/bin/activate
   script:
+    - source .venv/bin/activate
     - make format
 
 lint:
@@ -41,8 +41,8 @@ lint:
   before_script:
     - apt update
     - apt install build-essential -y
-    - source .venv/bin/activate
   script:
+    - source .venv/bin/activate
     - make lint
 
 test:
@@ -55,6 +55,6 @@ test:
   before_script:
     - apt update
     - apt install build-essential -y
-    - source .venv/bin/activate
   script:
+    - source .venv/bin/activate
     - make test
