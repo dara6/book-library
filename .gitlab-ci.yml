@@ -13,25 +13,29 @@ stages:
   # - format
   # - test
 
-# # init:
-# #   stage: init
-# #   image: snakepacker/python:all
-# #   script:
-# #     - python3.10 -m pip install poetry
-# #     - poetry export -f requirements.txt --output requirements.txt --without-hashes
-# #     - python3.10 -m pip install --no-cache-dir --upgrade -r requirements.txt
+init:
+  stage: init
+  image: snakepacker/python:all
+  script:
+    - python3.10 -m pip install venv poetry
+    - poetry export -f requirements.txt --output requirements.txt --without-hashes
+    - python3.10 -m venv .venv
+    - source .venv/bin/activate
+    - python -m pip install --no-cache-dir --upgrade -r requirements.txt
+artifacts:
+    paths:
+      - .venv
 
-# # lint:
-# #   stage: lint
-# #   image: snakepacker/python:3.10
-# #   # dependencies:
-# #     # - init
-# #   before_script:
-# #     - cp .env.example .env
-# #     - apt-get update
-# #     - apt-get install build-essential -y
-# #   script:
-# #     - make lint
+lint:
+  stage: lint
+  image: snakepacker/python:3.10
+  dependencies:
+    - init
+  before_script:
+    - apt-get update
+    - apt-get install build-essential -y
+  script:
+    - make lint
 
 # # format:
 # #   stage: format
@@ -48,21 +52,3 @@ stages:
 # #     # - init
 # #   script:
 # #     - make test
-
-init:
-  stage: init
-  image: snakepacker/python:all
-  script:
-    - echo "Hello, world!" > output.txt
-  artifacts:
-    paths:
-      - output.txt
-      - /usr/lib/python3.10/
-
-lint:
-  stage: lint
-  image: snakepacker/python:3.10
-  dependencies:
-    - init
-  script:
-    - cat output.txt
