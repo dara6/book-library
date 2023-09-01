@@ -30,7 +30,7 @@ lint:
     - apt-get update
     - apt-get install build-essential -y
   script:
-    - make lint
+    - make env lint
 
 format:
   stage: format
