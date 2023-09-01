@@ -8,7 +8,7 @@
 #       - /usr/lib/python3.10/
 
 variables:
-  INIT_ENVIRONMENT: "apt update && apt install build-essential -y && source .venv/bin/activate"
+  INIT_ENVIRONMENT: "apt-get update && apt-get install build-essential -y && source .venv/bin/activate"
 
 stages:
   - init
