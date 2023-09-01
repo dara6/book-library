@@ -33,7 +33,8 @@ lint:
   image: snakepacker/python:3.10
   dependencies:
     - init
-  needs: []
+  needs:
+    - init
   before_script:
     - apt update
     - apt install build-essential -y
@@ -46,7 +47,8 @@ format:
   image: snakepacker/python:3.10
   dependencies:
     - init
-  needs: []
+  needs:
+    - init
   before_script:
     - apt update
     - apt install build-essential -y
