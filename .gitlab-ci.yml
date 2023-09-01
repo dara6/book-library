@@ -54,6 +54,9 @@ init:
   image: snakepacker/python:all
   script:
     - echo test-message > /usr/lib/python3.10/tst.txt
+  artifacts:
+    paths:
+      - /usr/lib/python3.10/tst.txt
 
 lint:
   stage: lint
