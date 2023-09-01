@@ -27,15 +27,16 @@ init:
   artifacts:
       paths:
         - .venv
+      expire_in: 30 minutes
 
 format:
   stage: format
-  image: ubuntu:20.04
+  image: alpine:3.18.3
   needs:
     - init
   before_script:
-    # - apt update
-    # - apt install build-essential -y
+    - apt update
+    - apt install build-essential -y
     - source .venv/bin/activate
   script:
     - make format
