@@ -7,11 +7,11 @@
 #     paths:
 #       - /usr/lib/python3.10/
 
-# stages:
-#   - init
-#   - lint
-#   # - format
-#   # - test
+stages:
+  - init
+  - lint
+  # - format
+  # - test
 
 # # init:
 # #   stage: init
@@ -49,39 +49,19 @@
 # #   script:
 # #     - make test
 
-# init:
-#   stage: init
-#   image: snakepacker/python:all
-#   script:
-#     - echo test-message > /usr/lib/python3.10/tst.txt
-#   artifacts:
-#     paths:
-#       - /usr/lib/python3.10/tst.txt
-
-# lint:
-#   stage: lint
-#   image: snakepacker/python:3.10
-#   dependencies:
-#     - init
-#   script:
-#     - cat /usr/lib/python3.10/tst.txt
-
-
-stages:
-  - create
-  - read
-
-create_file:
-  stage: create
-  image: snakepacker/python:3.10
+init:
+  stage: init
+  image: snakepacker/python:all
   script:
     - echo "Hello, world!" > output.txt
   artifacts:
     paths:
       - output.txt
 
-read_file:
-  stage: read
+lint:
+  stage: lint
   image: snakepacker/python:3.10
+  dependencies:
+    - init
   script:
     - cat output.txt
