@@ -73,6 +73,7 @@ stages:
 
 create_file:
   stage: create
+  image: snakepacker/python:3.10
   script:
     - echo "Hello, world!" > output.txt
   artifacts:
@@ -81,5 +82,6 @@ create_file:
 
 read_file:
   stage: read
+  image: snakepacker/python:3.10
   script:
     - cat output.txt
