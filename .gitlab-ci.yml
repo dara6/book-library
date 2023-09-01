@@ -7,6 +7,9 @@
 #     paths:
 #       - /usr/lib/python3.10/
 
+variables:
+  INIT_ENVIRONMENT: "apt update && apt install build-essential -y && source .venv/bin/activate"
+
 stages:
   - init
   - lint
@@ -34,10 +37,8 @@ lint:
   dependencies:
     - init
   before_script:
-    - apt update
-    - apt install build-essential -y
+    - bash -c $INIT_ENVIRONMENT
   script:
-    - source .venv/bin/activate
     - make lint
 
 # # format:
