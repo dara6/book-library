@@ -7,12 +7,6 @@
 #     paths:
 #       - /usr/lib/python3.10/
 
-variables:
-  INIT_ENVIRONMENT: >
-    apt-get update
-    apt-get install build-essential -y
-    source .venv/bin/activate
-
 stages:
   - init
   - lint
@@ -30,11 +24,9 @@ init:
     - python3.10 -m venv .venv
     - source .venv/bin/activate
     - python -m pip install --no-cache-dir --upgrade -r requirements.txt
-    - echo $INIT_ENVIRONMENT > init.sh
   artifacts:
       paths:
         - .venv
-        - init.sh
 
 lint:
   stage: lint
@@ -42,7 +34,9 @@ lint:
   dependencies:
     - init
   before_script:
-    - sh init.sh
+    - apt update
+    - apt install build-essential -y
+    - source .venv/bin/activate
   script:
     - make lint
 
