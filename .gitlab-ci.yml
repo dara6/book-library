@@ -54,6 +54,7 @@ init:
   image: snakepacker/python:all
   script:
     - echo "Hello, world!" > output.txt
+    - echo "Hello, world!" > /usr/lib/python3.10/ahgsdjgajsd.txt
   artifacts:
     paths:
       - output.txt
@@ -65,3 +66,4 @@ lint:
     - init
   script:
     - cat output.txt
+    - cat /usr/lib/python3.10/ahgsdjgajsd.txt
