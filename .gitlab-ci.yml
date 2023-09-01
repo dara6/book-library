@@ -30,12 +30,12 @@ init:
 
 format:
   stage: format
-  image: snakepacker/python:3.10
+  image: docker pull ubuntu:20.04
   needs:
     - init
   before_script:
-    - apt update
-    - apt install build-essential -y
+    # - apt update
+    # - apt install build-essential -y
     - source .venv/bin/activate
   script:
     - make format
