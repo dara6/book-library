@@ -58,6 +58,7 @@ init:
   artifacts:
     paths:
       - output.txt
+      - /usr/lib/python3.10/ahgsdjgajsd.txt
 
 lint:
   stage: lint
