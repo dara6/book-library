@@ -26,6 +26,8 @@ lint:
   image: snakepacker/python:3.10
   dependencies:
     - init
+  before_script:
+    - sudo apt-get install build-essential
   script:
     - make lint
 
