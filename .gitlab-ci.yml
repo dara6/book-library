@@ -10,7 +10,7 @@
 stages:
   - init
   - lint
-  # - format
+  - format
   # - test
 
 init:
