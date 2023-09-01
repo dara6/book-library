@@ -9,8 +9,8 @@
 
 stages:
   - init
-  - lint
   - format
+  - lint
   # - test
 
 init:
@@ -28,18 +28,6 @@ init:
       paths:
         - .venv
 
-lint:
-  stage: lint
-  image: snakepacker/python:3.10
-  needs:
-    - init
-  before_script:
-    - apt update
-    - apt install build-essential -y
-    - source .venv/bin/activate
-  script:
-    - make lint
-
 format:
   stage: format
   image: snakepacker/python:3.10
@@ -51,6 +39,18 @@ format:
     - source .venv/bin/activate
   script:
     - make format
+
+lint:
+  stage: lint
+  image: snakepacker/python:3.10
+  needs:
+    - format
+  before_script:
+    - apt update
+    - apt install build-essential -y
+    - source .venv/bin/activate
+  script:
+    - make lint
 
 # # test:
 # #   stage: test
