@@ -1,67 +1,85 @@
----
+# ---
 
-default:
-  cache:
-    # TODO:
-    key: tst
-    paths:
-      - /usr/lib/python3.10/
+# default:
+#   cache:
+#     # TODO:
+#     key: tst
+#     paths:
+#       - /usr/lib/python3.10/
 
-stages:
-  - init
-  - lint
-  # - format
-  # - test
+# stages:
+#   - init
+#   - lint
+#   # - format
+#   # - test
+
+# # init:
+# #   stage: init
+# #   image: snakepacker/python:all
+# #   script:
+# #     - python3.10 -m pip install poetry
+# #     - poetry export -f requirements.txt --output requirements.txt --without-hashes
+# #     - python3.10 -m pip install --no-cache-dir --upgrade -r requirements.txt
+
+# # lint:
+# #   stage: lint
+# #   image: snakepacker/python:3.10
+# #   # dependencies:
+# #     # - init
+# #   before_script:
+# #     - cp .env.example .env
+# #     - apt-get update
+# #     - apt-get install build-essential -y
+# #   script:
+# #     - make lint
+
+# # format:
+# #   stage: format
+# #   image: snakepacker/python:3.10
+# #   # dependencies:
+# #     # - init
+# #   script:
+# #     - make format
+
+# # test:
+# #   stage: test
+# #   image: snakepacker/python:3.10
+# #   # dependencies:
+# #     # - init
+# #   script:
+# #     - make test
 
 # init:
 #   stage: init
 #   image: snakepacker/python:all
 #   script:
-#     - python3.10 -m pip install poetry
-#     - poetry export -f requirements.txt --output requirements.txt --without-hashes
-#     - python3.10 -m pip install --no-cache-dir --upgrade -r requirements.txt
+#     - echo test-message > /usr/lib/python3.10/tst.txt
+#   artifacts:
+#     paths:
+#       - /usr/lib/python3.10/tst.txt
 
 # lint:
 #   stage: lint
 #   image: snakepacker/python:3.10
-#   # dependencies:
-#     # - init
-#   before_script:
-#     - cp .env.example .env
-#     - apt-get update
-#     - apt-get install build-essential -y
+#   dependencies:
+#     - init
 #   script:
-#     - make lint
+#     - cat /usr/lib/python3.10/tst.txt
 
-# format:
-#   stage: format
-#   image: snakepacker/python:3.10
-#   # dependencies:
-#     # - init
-#   script:
-#     - make format
 
-# test:
-#   stage: test
-#   image: snakepacker/python:3.10
-#   # dependencies:
-#     # - init
-#   script:
-#     - make test
+stages:
+  - create
+  - read
 
-init:
-  stage: init
-  image: snakepacker/python:all
+create_file:
+  stage: create
   script:
-    - echo test-message > /usr/lib/python3.10/tst.txt
+    - echo "Hello, world!" > output.txt
   artifacts:
     paths:
-      - /usr/lib/python3.10/tst.txt
+      - output.txt
 
-lint:
-  stage: lint
-  image: snakepacker/python:3.10
-  dependencies:
-    - init
+read_file:
+  stage: read
   script:
-    - cat /usr/lib/python3.10/tst.txt
+    - cat output.txt
