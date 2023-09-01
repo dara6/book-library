@@ -33,6 +33,7 @@ lint:
   image: snakepacker/python:3.10
   dependencies:
     - init
+  needs: []
   before_script:
     - apt update
     - apt install build-essential -y
@@ -40,13 +41,18 @@ lint:
   script:
     - make lint
 
-# # format:
-# #   stage: format
-# #   image: snakepacker/python:3.10
-# #   # dependencies:
-# #     # - init
-# #   script:
-# #     - make format
+format:
+  stage: format
+  image: snakepacker/python:3.10
+  dependencies:
+    - init
+  needs: []
+  before_script:
+    - apt update
+    - apt install build-essential -y
+    - source .venv/bin/activate
+  script:
+    - make format
 
 # # test:
 # #   stage: test
