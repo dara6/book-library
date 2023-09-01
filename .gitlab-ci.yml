@@ -27,7 +27,7 @@ lint:
   # dependencies:
     # - init
   before_script:
-    - sudo apt-get install build-essential
+    - apt-get install build-essential
   script:
     - make lint
 
