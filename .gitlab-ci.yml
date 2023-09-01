@@ -1,17 +1,8 @@
-# ---
-
-# default:
-#   cache:
-#     # TODO:
-#     key: tst
-#     paths:
-#       - /usr/lib/python3.10/
-
 stages:
   - init
   - format
   - lint
-  # - test
+  - test
 
 init:
   stage: init
@@ -31,7 +22,7 @@ init:
 
 format:
   stage: format
-  image: alpine:3.18.3
+  image: ubuntu:20.04
   needs:
     - init
   before_script:
@@ -43,7 +34,7 @@ format:
 
 lint:
   stage: lint
-  image: snakepacker/python:3.10
+  image: ubuntu:20.04
   needs:
     - init
     - format
@@ -54,10 +45,16 @@ lint:
   script:
     - make lint
 
-# # test:
-# #   stage: test
-# #   image: snakepacker/python:3.10
-# #   # dependencies:
-# #     # - init
-# #   script:
-# #     - make test
+test:
+  stage: test
+  image: ubuntu:20.04
+  needs:
+    - init
+    - format
+    - lint
+  before_script:
+    - apt update
+    - apt install build-essential -y
+    - source .venv/bin/activate
+  script:
+    - make test
