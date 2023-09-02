@@ -29,10 +29,10 @@ class SessionManager:
 
     def refresh(self) -> None:
         self.async_engine = create_async_engine(
-            get_settings().database_uri_async, echo=True, future=True
+            get_settings().database_uri_async, echo=False, future=True
         )
         self.sync_engine = create_engine(
-            get_settings().database_uri_sync, echo=True, future=True
+            get_settings().database_uri_sync, echo=False, future=True
         )
 
 

@@ -12,7 +12,7 @@ class DefaultSettings(BaseSettings):
     """
 
     ENV: str = environ.get('ENV', 'local')
-    
+
     APP_HOST: str = environ.get('APP_HOST', 'http://127.0.0.1')
     APP_PORT: int = int(environ.get('APP_PORT', 8000))
 

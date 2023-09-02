@@ -1,0 +1,70 @@
+openapi: 3.0.1
+
+info:
+  title: Book Library
+  version: '1.0'
+
+paths:
+  /v1/genres:
+    post:
+      summary: Создание жанра
+      tags:
+        - genres
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GenreCreateRequestV1'
+        required: true
+      responses:
+        200:
+          description: Жанр создан
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenreCreateResponseV1'
+        409:
+          description: Жанр с таким именем уже есть
+
+components:
+  schemas:
+
+    # Genres
+    GenreId:
+      description: Идентификатор жанра
+      type: integer
+      example: 1
+
+    GenreName:
+      description: Наименование жанра
+      type: string
+      example: Боевик
+
+    GenreDetails:
+      description: Детальная информация о жанре
+      type: object
+      additionalProperties: false
+      properties:
+        id:
+          $ref: '#/components/schemas/GenreId'
+        name:
+          $ref: '#/components/schemas/GenreName'
+      required:
+        - id
+        - name
+
+    GenreCreateOrUpdate:
+      description: Модель создания/редкатирования жанра
+      type: object
+      additionalProperties: false
+      properties:
+        name:
+          $ref: '#/components/schemas/GenreName'
+      required:
+        - name
+
+    GenreCreateRequestV1:
+      $ref: '#/components/schemas/GenreCreateOrUpdate'
+
+    GenreCreateResponseV1:
+      $ref: '#/components/schemas/GenreDetails'
