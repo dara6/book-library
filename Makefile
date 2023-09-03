@@ -30,3 +30,8 @@ db-down:
 	docker-compose stop db
 	docker-compose rm -f db
 
+migrate:
+	alembic upgrade head
+
+revision:
+	alembic revision --autogenerate
