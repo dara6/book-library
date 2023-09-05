@@ -25,9 +25,44 @@ paths:
                 $ref: '#/components/schemas/GenreCreateResponseV1'
         409:
           description: Жанр с таким именем уже есть
+    get:
+      summary: Получение списка жанров
+      tags:
+        - genres
+      parameters:
+        - name: page
+          in: query
+          required: false
+          schema:
+            $ref: '#/components/schemas/Page'
+        - name: size
+          in: query
+          required: false
+          schema:
+            $ref: '#/components/schemas/Size'
+      responses:
+        200:
+          description: Список жанров
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenreGetListResponseV1'
 
 components:
   schemas:
+
+    # Common
+    Page:
+      description: Номер страницы результата
+      type: integer
+      minimum: 0
+      default: 0
+
+    Size:
+      description: Размер страницы результата
+      type: integer
+      minimum: 0
+      default: 10
 
     # Genres
     GenreId:
@@ -42,6 +77,19 @@ components:
 
     GenreDetails:
       description: Детальная информация о жанре
+      type: object
+      additionalProperties: false
+      properties:
+        id:
+          $ref: '#/components/schemas/GenreId'
+        name:
+          $ref: '#/components/schemas/GenreName'
+      required:
+        - id
+        - name
+
+    GenreBase:
+      description: Базовая информация о жанре
       type: object
       additionalProperties: false
       properties:
@@ -68,3 +116,21 @@ components:
 
     GenreCreateResponseV1:
       $ref: '#/components/schemas/GenreDetails'
+      
+    GenreGetListResponseV1:
+      type: object
+      additionalProperties: false
+      properties:
+        genres:
+          type: array
+          items:
+            $ref: '#/components/schemas/GenreBase'
+        page:
+          $ref: '#/components/schemas/Page'
+        size:
+          $ref: '#/components/schemas/Size'
+      required:
+        - genres
+        - page
+        - size
+      

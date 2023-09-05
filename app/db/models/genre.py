@@ -1,7 +1,7 @@
 from sqlalchemy import Column
 from sqlalchemy.dialects.postgresql import TEXT
 
-from .base import BaseTable
+from app.db.models.base import BaseTable
 
 
 class Genre(BaseTable):

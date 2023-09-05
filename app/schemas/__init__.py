@@ -1,5 +1,7 @@
 from app.schemas.ping import PingResponse
 from app.schemas.genre import (
+    Page,
+    Size,
     GenreName,
     GenreId,
     GenreDetails,
@@ -7,6 +9,8 @@ from app.schemas.genre import (
     GenreCreateRequestV1,
     GenreCreateResponseV1,
     GenreAlreadyExistsException,
+    GenreBase,
+    GenreGetListResponseV1,
 )
 
 __all__ = [
@@ -18,4 +22,8 @@ __all__ = [
     'GenreCreateRequestV1',
     'GenreCreateResponseV1',
     'GenreAlreadyExistsException',
+    'Page',
+    'Size',
+    'GenreBase',
+    'GenreGetListResponseV1',
 ]

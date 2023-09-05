@@ -1,11 +1,19 @@
 from pydantic import BaseModel
 
 
-class GenreName(str):
+class Page(int):
+    pass
+
+
+class Size(int):
     pass
 
 
 class GenreId(int):
+    pass
+
+
+class GenreName(str):
     pass
 
 
@@ -20,6 +28,17 @@ class GenreCreateRequestV1(GenreCreateOrUpdate):
 class GenreDetails(BaseModel):
     id: GenreId
     name: GenreName
+
+
+class GenreBase(BaseModel):
+    id: GenreId
+    name: GenreName
+
+
+class GenreGetListResponseV1(BaseModel):
+    genres: list[GenreBase]
+    page: Page
+    size: Size
 
 
 class GenreCreateResponseV1(GenreDetails):
