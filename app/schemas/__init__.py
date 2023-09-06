@@ -11,6 +11,8 @@ from app.schemas.genre import (
     GenreAlreadyExistsException,
     GenreBase,
     GenreGetListResponseV1,
+    GenreGetDetailsResponseV1,
+    GenreNotFoundException,
 )
 
 __all__ = [
@@ -26,4 +28,6 @@ __all__ = [
     'Size',
     'GenreBase',
     'GenreGetListResponseV1',
+    'GenreGetDetailsResponseV1',
+    'GenreNotFoundException',
 ]

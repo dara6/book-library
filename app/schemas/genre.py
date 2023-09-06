@@ -45,5 +45,13 @@ class GenreCreateResponseV1(GenreDetails):
     pass
 
 
+class GenreGetDetailsResponseV1(GenreDetails):
+    pass
+
+
 class GenreAlreadyExistsException(Exception):
+    pass
+
+
+class GenreNotFoundException(Exception):
     pass
