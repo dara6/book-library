@@ -5,12 +5,15 @@ from app.db.connection import get_async_session
 from app.schemas import (
     Page,
     Size,
+    GenreId,
     GenreCreateRequestV1,
     GenreCreateResponseV1,
     GenreAlreadyExistsException,
     GenreGetListResponseV1,
+    GenreGetDetailsResponseV1,
+    GenreNotFoundException,
 )
-from app.utils.service.genres import create_genre, get_genres
+from app.utils.service.genres import create_genre, get_genres, get_genre_details
 
 
 api_router_v1 = APIRouter(
@@ -41,3 +44,17 @@ async def get_list_of_genres_v1_views(
 ) -> GenreGetListResponseV1:
     genres = await get_genres(session, page, size)
     return GenreGetListResponseV1(genres=genres, page=page, size=size)
+
+
+@api_router_v1.get(
+    '/genres/{genre_id}',
+    responses={status.HTTP_404_NOT_FOUND: {'description': 'Genre not found'}},
+)
+async def get_genre_details_v1_views(
+    genre_id: GenreId, session: AsyncSession = Depends(get_async_session)
+) -> GenreGetDetailsResponseV1:
+    try:
+        details = await get_genre_details(session, genre_id)
+        return GenreGetDetailsResponseV1.parse_obj(details)
+    except GenreNotFoundException:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, detail='Genre not found')

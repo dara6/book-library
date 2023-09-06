@@ -22,3 +22,9 @@ async def select_genres(session: AsyncSession, page: int, size: int) -> list[Gen
     stmt = select(Genre).limit(size).offset(page * size)
     result = await session.scalars(stmt)
     return result.all()
+
+
+async def select_genre_by_id(session: AsyncSession, id: int) -> Optional[Genre]:
+    stmt = select(Genre).where(Genre.id == id)
+    result = await session.scalar(stmt)
+    return result

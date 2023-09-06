@@ -47,6 +47,26 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/GenreGetListResponseV1'
+  /v1/genres/{genre_id}:
+    get:
+      summary: Получение жанра
+      tags:
+        - genres
+      parameters:
+        - name: genre_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Детальная информация жанра
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenreGetDetailsResponseV1'
+        404:
+          description: Жанр не найден
 
 components:
   schemas:
@@ -133,4 +153,7 @@ components:
         - genres
         - page
         - size
+
+    GenreGetDetailsResponseV1:
+      $ref: '#/components/schemas/GenreDetails'
       
