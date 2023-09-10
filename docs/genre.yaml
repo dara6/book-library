@@ -68,6 +68,34 @@ paths:
         404:
           description: Жанр не найден
 
+    put:
+      summary: Редактирование жанра
+      tags:
+        - genres
+      parameters:
+        - name: genre_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GenreUpdateRequestV1'
+        required: true
+      responses:
+        200:
+          description: Жанр обновлен
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenreUpdateResponseV1'
+        404:
+          description: Жанр не найден
+        409:
+          description: Жанр с таким именем уже есть
+
 components:
   schemas:
 
@@ -155,5 +183,11 @@ components:
         - size
 
     GenreGetDetailsResponseV1:
+      $ref: '#/components/schemas/GenreDetails'
+
+    GenreUpdateRequestV1:
+      $ref: '#/components/schemas/GenreCreateOrUpdate'
+
+    GenreUpdateResponseV1:
       $ref: '#/components/schemas/GenreDetails'
       

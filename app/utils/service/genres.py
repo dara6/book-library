@@ -15,6 +15,7 @@ from app.utils.database.genres import (
     insert_genre,
     select_genres,
     select_genre_by_id,
+    update_genre as update_db_genre,
 )
 from app.db.models import Genre
 
@@ -39,4 +40,18 @@ async def get_genre_details(session: AsyncSession, id: GenreId) -> GenreDetails:
     db_genre = await select_genre_by_id(session, id)
     if db_genre is None:
         raise GenreNotFoundException()
+    return GenreDetails(id=db_genre.id, name=db_genre.name)
+
+
+async def update_genre(
+    session: AsyncSession, genre: GenreCreateOrUpdate, id: GenreId
+) -> GenreDetails:
+    db_genre = await select_genre_by_id(session, id)
+    if db_genre is None:
+        raise GenreNotFoundException()
+    existent_db_genre = await select_genre_by_name(session, genre.name)
+    if existent_db_genre is not None and db_genre.id != existent_db_genre.id:
+        raise GenreAlreadyExistsException()
+    db_genre.name = genre.name
+    await update_db_genre(session, db_genre)
     return GenreDetails(id=db_genre.id, name=db_genre.name)

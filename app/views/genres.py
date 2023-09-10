@@ -12,8 +12,16 @@ from app.schemas import (
     GenreGetListResponseV1,
     GenreGetDetailsResponseV1,
     GenreNotFoundException,
+    GenreUpdateRequestV1,
+    GenreUpdateResponseV1,
+    GenreCreateOrUpdate,
 )
-from app.utils.service.genres import create_genre, get_genres, get_genre_details
+from app.utils.service.genres import (
+    create_genre,
+    get_genres,
+    get_genre_details,
+    update_genre,
+)
 
 
 api_router_v1 = APIRouter(
@@ -58,3 +66,26 @@ async def get_genre_details_v1_views(
         return GenreGetDetailsResponseV1.parse_obj(details)
     except GenreNotFoundException:
         raise HTTPException(status.HTTP_404_NOT_FOUND, detail='Genre not found')
+
+
+@api_router_v1.put(
+    '/genres/{genre_id}',
+    responses={
+        status.HTTP_404_NOT_FOUND: {'description': 'Genre not found'},
+        status.HTTP_409_CONFLICT: {'description': 'Genre already exists'},
+    },
+)
+async def put_genre_update_v1_views(
+    genre_id: GenreId,
+    body: GenreUpdateRequestV1,
+    session: AsyncSession = Depends(get_async_session),
+) -> GenreUpdateResponseV1:
+    try:
+        genre = await update_genre(
+            session, GenreCreateOrUpdate.parse_obj(body), genre_id
+        )
+        return GenreUpdateResponseV1.parse_obj(genre)
+    except GenreNotFoundException:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, detail='Genre not found')
+    except GenreAlreadyExistsException:
+        raise HTTPException(status.HTTP_409_CONFLICT, detail='Genre already exists')

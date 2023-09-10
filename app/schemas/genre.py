@@ -55,3 +55,11 @@ class GenreAlreadyExistsException(Exception):
 
 class GenreNotFoundException(Exception):
     pass
+
+
+class GenreUpdateRequestV1(GenreCreateOrUpdate):
+    pass
+
+
+class GenreUpdateResponseV1(GenreDetails):
+    pass
