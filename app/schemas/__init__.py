@@ -13,6 +13,8 @@ from app.schemas.genre import (
     GenreGetListResponseV1,
     GenreGetDetailsResponseV1,
     GenreNotFoundException,
+    GenreUpdateRequestV1,
+    GenreUpdateResponseV1,
 )
 
 __all__ = [
@@ -30,4 +32,6 @@ __all__ = [
     'GenreGetListResponseV1',
     'GenreGetDetailsResponseV1',
     'GenreNotFoundException',
+    'GenreUpdateRequestV1',
+    'GenreUpdateResponseV1',
 ]

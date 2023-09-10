@@ -28,3 +28,8 @@ async def select_genre_by_id(session: AsyncSession, id: int) -> Optional[Genre]:
     stmt = select(Genre).where(Genre.id == id)
     result = await session.scalar(stmt)
     return result
+
+
+async def update_genre(session: AsyncSession, genre: Genre) -> None:
+    await session.commit()
+    await session.refresh(genre)
