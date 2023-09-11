@@ -1,7 +1,7 @@
 from typing import Optional
 
 from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy import select
+from sqlalchemy import select, delete
 
 from app.db.models import Genre
 
@@ -33,3 +33,9 @@ async def select_genre_by_id(session: AsyncSession, id: int) -> Optional[Genre]:
 async def update_genre(session: AsyncSession, genre: Genre) -> None:
     await session.commit()
     await session.refresh(genre)
+
+
+async def delete_genre_by_id(session: AsyncSession, id: int) -> None:
+    stmt = delete(Genre).where(Genre.id == id)
+    await session.execute(stmt)
+    await session.commit()

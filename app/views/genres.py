@@ -21,6 +21,7 @@ from app.utils.service.genres import (
     get_genres,
     get_genre_details,
     update_genre,
+    delete_genre,
 )
 
 
@@ -89,3 +90,16 @@ async def put_genre_update_v1_views(
         raise HTTPException(status.HTTP_404_NOT_FOUND, detail='Genre not found')
     except GenreAlreadyExistsException:
         raise HTTPException(status.HTTP_409_CONFLICT, detail='Genre already exists')
+
+
+@api_router_v1.delete(
+    '/genres/{genre_id}',
+    responses={status.HTTP_404_NOT_FOUND: {'description': 'Genre not found'}},
+)
+async def delete_genre_v1_views(
+    genre_id: GenreId, session: AsyncSession = Depends(get_async_session)
+) -> None:
+    try:
+        await delete_genre(session, genre_id)
+    except GenreNotFoundException:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, detail='Genre not found')
