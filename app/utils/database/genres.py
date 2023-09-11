@@ -39,4 +39,3 @@ async def delete_genre_by_id(session: AsyncSession, id: int) -> None:
     stmt = delete(Genre).where(Genre.id == id)
     await session.execute(stmt)
     await session.commit()
-
