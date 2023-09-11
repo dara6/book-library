@@ -95,6 +95,22 @@ paths:
           description: Жанр не найден
         409:
           description: Жанр с таким именем уже есть
+          
+    delete:
+      summary: Удаление жанра
+      tags:
+        - genres
+      parameters:
+        - name: genre_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Жанр удален
+        404:
+          description: Жанр не найден
 
 components:
   schemas:
