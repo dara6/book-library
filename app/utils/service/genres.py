@@ -16,6 +16,7 @@ from app.utils.database.genres import (
     select_genres,
     select_genre_by_id,
     update_genre as update_db_genre,
+    delete_genre_by_id
 )
 from app.db.models import Genre
 
@@ -55,3 +56,12 @@ async def update_genre(
     db_genre.name = genre.name
     await update_db_genre(session, db_genre)
     return GenreDetails(id=db_genre.id, name=db_genre.name)
+
+
+async def delete_genre(
+        session: AsyncSession, id: GenreId
+) -> None:
+    db_genre = await select_genre_by_id(session, id)
+    if db_genre is None:
+        raise GenreNotFoundException()
+    await delete_genre_by_id(session, db_genre.id)
