@@ -1,0 +1,93 @@
+openapi: 3.0.1
+
+info:
+  title: Book Library
+  version: '1.0'
+
+paths:
+  /v1/publishers:
+    post:
+      summary: Создание издательства
+      tags:
+        - publishers
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PublisherCreateRequestV1'
+        required: true
+      responses:
+        200:
+          description: Издательство создано
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublisherCreateResponseV1'
+        409:
+          description: |
+            Bad request:
+            * Издательство с таким именем уже есть
+            * Издательство с таким веб-сайтом уже есть
+
+components:
+  schemas:
+
+    # Publishers
+    PublisherId:
+      description: Идентификатор издательства
+      type: integer
+      example: 1
+
+    PublisherName:
+      description: Наименование издательства
+      type: string
+      example: Яндекс
+
+    PublisherAddress:
+      description: Адрес издательства
+      type: string
+      example: 'ул. Льва Толстого, 16, Москва'
+
+    PublisherWebsite:
+      description: Веб-сайт издательства
+      type: string
+      format: uri
+      example: https://ya.ru/
+
+    PublisherDetails:
+      description: Детальная информация об издательстве
+      type: object
+      additionalProperties: false
+      properties:
+        id:
+          $ref: '#/components/schemas/PublisherId'
+        name:
+          $ref: '#/components/schemas/PublisherName'
+        address:
+          $ref: '#/components/schemas/PublisherAddress'
+        website:
+          $ref: '#/components/schemas/PublisherWebsite'
+      required:
+        - id
+        - name
+
+    PublisherCreateOrUpdate:
+      description: Модель создания/редкатирования издательства
+      type: object
+      additionalProperties: false
+      properties:
+        name:
+          $ref: '#/components/schemas/PublisherName'
+        address:
+          $ref: '#/components/schemas/PublisherAddress'
+        website:
+          $ref: '#/components/schemas/PublisherWebsite'
+      required:
+        - name
+
+    PublisherCreateRequestV1:
+      $ref: '#/components/schemas/PublisherCreateOrUpdate'
+
+    PublisherCreateResponseV1:
+      $ref: '#/components/schemas/PublisherDetails'
+  
