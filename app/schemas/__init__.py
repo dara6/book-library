@@ -25,7 +25,8 @@ from app.schemas.publisher import (
     PublisherCreateOrUpdate,
     PublisherCreateRequestV1,
     PublisherCreateResponseV1,
-    PublisherAlreadyExistsException,
+    PublisherNameAlreadyExistsException,
+    PublisherWebsiteAlreadyExistsException,
 )
 
 __all__ = [
@@ -53,5 +54,6 @@ __all__ = [
     'PublisherCreateOrUpdate',
     'PublisherCreateRequestV1',
     'PublisherCreateResponseV1',
-    'PublisherAlreadyExistsException',
+    'PublisherNameAlreadyExistsException',
+    'PublisherWebsiteAlreadyExistsException',
 ]

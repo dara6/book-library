@@ -14,6 +14,12 @@ async def select_publisher_by_name(
     return result
 
 
+async def select_publisher_by_website(session: AsyncSession, website: str):
+    stmt = select(Publisher).where(Publisher.website == website)
+    result = await session.scalar(stmt)
+    return result
+
+
 async def insert_publisher(session: AsyncSession, publisher: Publisher) -> None:
     session.add(publisher)
     await session.commit()

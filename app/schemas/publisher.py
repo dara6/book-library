@@ -40,5 +40,9 @@ class PublisherCreateResponseV1(PublisherDetails):
     pass
 
 
-class PublisherAlreadyExistsException(BaseException):
+class PublisherNameAlreadyExistsException(BaseException):
+    pass
+
+
+class PublisherWebsiteAlreadyExistsException(BaseException):
     pass

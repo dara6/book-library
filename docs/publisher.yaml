@@ -23,7 +23,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PublisherCreateResponseV1'
-        400:
+        409:
           description: |
             Bad request:
             * Издательство с таким именем уже есть
