@@ -16,6 +16,18 @@ from app.schemas.genre import (
     GenreUpdateRequestV1,
     GenreUpdateResponseV1,
 )
+from app.schemas.publisher import (
+    PublisherId,
+    PublisherDetails,
+    PublisherAddress,
+    PublisherName,
+    PublisherWebsite,
+    PublisherCreateOrUpdate,
+    PublisherCreateRequestV1,
+    PublisherCreateResponseV1,
+    PublisherNameAlreadyExistsException,
+    PublisherWebsiteAlreadyExistsException,
+)
 
 __all__ = [
     'PingResponse',
@@ -34,4 +46,14 @@ __all__ = [
     'GenreNotFoundException',
     'GenreUpdateRequestV1',
     'GenreUpdateResponseV1',
+    'PublisherId',
+    'PublisherDetails',
+    'PublisherAddress',
+    'PublisherName',
+    'PublisherWebsite',
+    'PublisherCreateOrUpdate',
+    'PublisherCreateRequestV1',
+    'PublisherCreateResponseV1',
+    'PublisherNameAlreadyExistsException',
+    'PublisherWebsiteAlreadyExistsException',
 ]
